@@ -1,0 +1,31 @@
+{
+  "name": "knowledge_base_node",
+  "version": "1.0.0",
+  "description": "Simple knowledgebase app",
+  "main": "app",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Belchenkov/knowledge_base_node.git"
+  },
+  "keywords": [
+    "Express",
+    "Node",
+    "MongoDB"
+  ],
+  "author": "Aleksey Belchenkov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Belchenkov/knowledge_base_node/issues"
+  },
+  "homepage": "https://github.com/Belchenkov/knowledge_base_node#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

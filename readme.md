@@ -1,3 +1,3 @@
 # KnowledgeBaseNode
 
-### 
+### Simple knowledgebase app
