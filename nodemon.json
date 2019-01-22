@@ -1,0 +1,7 @@
+{
+  "env": {
+    "MONGO_USER": "yksoft",
+    "MONGO_PASSWORD": "oglTcIDFiO7CgRd7",
+    "MONGO_DB": "knowledgebase"
+  }
+}

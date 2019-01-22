@@ -1,7 +1,12 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const app = express();
+
+// Bring in Models
+let Article = require('./models/Article');
+
 
 // Load View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -10,30 +15,13 @@ app.set('view engine', 'pug');
 
 // Routes
 app.get('/', (req, res) => {
-    let articles = [
-        {
-            id: 1,
-            title: 'Article One',
-            author: 'Kokorin',
-            body: 'This is article one'
-        },
-        {
-            id: 2,
-            title: 'Article Two',
-            author: 'Mamaev',
-            body: 'This is article two'
-        },
-        {
-            id: 3,
-            title: 'Article Three',
-            author: 'Kerzakov',
-            body: 'This is article three'
-        }
-    ];
+    Article.find({}, (err, articles) => {
+        if (err) throw err;
 
-    res.render('index', {
-        title: 'Articles',
-        articles
+        res.render('index', {
+            title: 'Articles',
+            articles
+        });
     });
 });
 
@@ -45,6 +33,15 @@ app.get('/articles/add', (req, res) => {
 });
 
 const PORT = 5000;
-app.listen(PORT, () => {
-    console.log(`Server run on port ${PORT}`);
-});
+
+mongoose.connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-1owsl.mongodb.net/${process.env.MONGO_DB}?retryWrites=true`,
+    { useNewUrlParser: true }
+)
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`MongoDB Connected!`);
+            console.log(`Server running on port ${PORT}`);
+        });
+    })
+    .catch(err => console.error(err));
