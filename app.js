@@ -11,10 +11,12 @@ let Article = require('./models/Article');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Set Public Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Load View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 
 // Routes
 app.get('/', (req, res) => {
@@ -26,6 +28,15 @@ app.get('/', (req, res) => {
             articles
         });
     });
+});
+
+// Get Single Article
+app.get('/article/:id', (req, res) => {
+    Article.findById(req.params.id)
+        .then(article => {
+            res.render('article', { article });
+        })
+        .catch(err => console.log(err))
 });
 
 // Add Route
