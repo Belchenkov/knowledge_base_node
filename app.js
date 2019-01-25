@@ -87,6 +87,20 @@ app.post('/articles/edit/:id', (req, res) => {
         })
         .catch(err => console.log(err));
 });
+
+app.delete('/article/:id', (req, res) => {
+    let query = {_id: req.params.id};
+
+    Article.remove(query, (err) => {
+        if (err) {
+            console.log(err);
+        }
+
+        res.send('Success');
+    });
+});
+
+
 const PORT = 5000;
 
 mongoose.connect(
