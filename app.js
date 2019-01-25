@@ -60,6 +60,33 @@ app.post('/articles/add', (req, res) => {
        .catch(err => console.log(err));
 });
 
+// Load Edit Form
+app.get('/article/edit/:id', (req, res) => {
+    Article.findById(req.params.id)
+        .then(article => {
+            res.render('edit_article', {
+                title: 'Edit Article',
+                article
+            });
+        })
+        .catch(err => console.log(err))
+});
+
+// Update Submit POST Route
+app.post('/articles/edit/:id', (req, res) => {
+    let article = {};
+    article.title = req.body.title;
+    article.author = req.body.author;
+    article.body = req.body.body;
+
+    let query = {_id: req.params.id};
+
+    Article.update(query, article)
+        .then(result => {
+            res.redirect('/');
+        })
+        .catch(err => console.log(err));
+});
 const PORT = 5000;
 
 mongoose.connect(
